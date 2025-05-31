@@ -1,0 +1,36 @@
+body {
+  --sb-thumb-color: #525252;
+  /* dark gray thumb */
+  --sb-size: 14px;
+  overflow: overlay;
+  /* allows content to scroll while keeping scrollbar visible */
+}
+
+/* Scrollbar base width */
+body::-webkit-scrollbar {
+  width: var(--sb-size);
+  background: transparent;
+  /* fully transparent base */
+}
+
+/* Transparent track so content shows through */
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Thumb with color and rounded ends */
+body::-webkit-scrollbar-thumb {
+  background-color: var(--sb-thumb-color);
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  /* prevents hard edges */
+}
+
+/* Firefox support */
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) transparent;
+    scrollbar-width: thin;
+  }
+}

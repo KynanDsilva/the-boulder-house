@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGFrPh9WRsZopmwdBZ1dLkonqlWBTp6h0&callback=console.debug&libraries=maps,marker&v=beta"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | The Boulder House</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/scrollbar.css') }}">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="{{ url_for('home') }}">The Boulder <span>House</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('about') }}">About the Place</a></li>
+                    <li><a href="{{ url_for('book') }}">Book Now</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="contact-section">
+        <div class="contact-container">
+
+            <div class="contact-left">
+                <div class="contact-intro">
+                    <h1>Contact Us</h1>
+                    <p>We'd love to hear from you. Whether it's a booking query, a special request, or just a hello —
+                        we're here.</p>
+                </div>
+
+                <form action="/send-message" method="POST">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+
+                    <div class="form-consent">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent">I consent to having The Boulder House store my submitted information so
+                            they can respond to my inquiry.</label>
+                    </div>
+
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+
+            <div class="contact-right">
+                <div class="contact-info">
+                    <h2>Address</h2>
+                    <p>The Boulder house,<br>
+                        On Berigai KGF road,<br>
+                        Shoolagiri district,<br>
+                        Tamil Nadu-635105</p>
+                    <p style="margin-top: 10px;"><strong>Email:</strong> contact@boulderhouse.in</p>
+                    <p><strong>Phone:</strong> +91 95387 10873</p>
+                </div>
+
+                <div class="contact-map">
+                    <gmp-map center="12.813286781311035,78.07544708251953" zoom="14" map-id="DEMO_MAP_ID">
+                        <gmp-advanced-marker position="12.813286781311035,78.07544708251953"
+                            title="My location"></gmp-advanced-marker>
+                    </gmp-map>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>Boulder House</h3>
+                <p>Escape to comfort and nature. Your adventure starts here.</p>
+            </div>
+            <div class="footer-right">
+                <p>&copy; {{ current_year }} The Boulder House. All rights reserved.</p>
+                <p><a href="mailto:contact@boulderhouse.com">contact@boulderhouse.com</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

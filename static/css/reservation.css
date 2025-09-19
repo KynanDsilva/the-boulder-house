@@ -1,0 +1,283 @@
+/* ---------- ROOT PALETTE (matches site) ---------- */
+:root {
+    --earth: #686463;
+    --warm: #a68164;
+    --pebble: #f4f6f9;
+    --charcoal: #161e27;
+    --shadow: rgba(0, 0, 0, .08);
+}
+
+/* ---------- RESET ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', system-ui, sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(135deg, var(--pebble) 0%, #e3dbd7 100%);
+    color: var(--charcoal);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* ---------- NAVBAR (consistent with other pages) ---------- */
+header {
+    background: #fff;
+    padding: 1rem 0;
+    box-shadow: 0 2px 8px var(--shadow);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.logo a {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 700;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 var(--earth), 2px 2px 0 #b0b0b0, 3px 3px 5px rgba(0, 0, 0, .3);
+    text-transform: uppercase;
+    cursor: default;
+}
+
+.logo a span {
+    color: #818180;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--charcoal);
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    height: 2px;
+    background: var(--charcoal);
+    transform: scaleX(0);
+    transition: transform .3s;
+}
+
+.nav-links a:hover::after {
+    transform: scaleX(1);
+}
+
+/* ---------- MAIN LAYOUT ---------- */
+.booking-container {
+    flex: 1;
+    max-width: 900px;
+    margin: 120px auto 60px;
+    padding: 0 1.5rem;
+}
+
+.booking-form {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px var(--shadow);
+    padding: 3rem 2.5rem;
+    animation: fadeUp .8s;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.booking-form h1 {
+    font-size: 2.25rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--earth);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ---------- SUMMARY CARD ---------- */
+.booking-summary {
+    background: var(--pebble);
+    border-left: 4px solid var(--warm);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: var(--charcoal);
+    line-height: 1.6;
+}
+
+.booking-summary h2 {
+    margin-bottom: .5rem;
+    font-size: 1.4rem;
+    color: var(--earth);
+}
+
+.summary-details p {
+    margin: .25rem 0;
+}
+
+/* ---------- FORM SECTIONS ---------- */
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.form-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--earth);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: 600;
+    color: var(--charcoal);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+    width: 100%;
+    padding: .9rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    transition: border-color .3s, box-shadow .3s;
+}
+
+.form-group input:focus {
+    border-color: var(--warm);
+    box-shadow: 0 0 0 2px rgba(166, 129, 100, .2);
+    outline: none;
+}
+
+/* ---------- CHECKBOX ---------- */
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--warm);
+    margin-top: 4px;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+/* ---------- BUTTON ---------- */
+.form-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btn-submit {
+    background: var(--earth);
+    color: #fff;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background .3s, transform .2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-submit:hover {
+    background: var(--warm);
+    transform: translateY(-2px);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+/* ---------- FOOTER (unchanged) ---------- */
+.footer {
+    background-color: #161e27;
+    color: #ffffff;
+    padding: 40px 0;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left h3 {
+    margin-bottom: 10px;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-right a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-right a:hover {
+    color: #838180;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .footer-right {
+        text-align: center;
+    }
+}

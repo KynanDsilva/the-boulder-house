@@ -1,0 +1,445 @@
+/* General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f6f9;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/*Loader*/
+.loader-overlay {
+    position: fixed;
+    inset: 0;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity .5s, visibility .5s;
+}
+
+.spotlight-container {
+    text-align: center;
+}
+
+.spotlight-text {
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    background-image:
+        linear-gradient(90deg, transparent, #a68164, transparent),
+        linear-gradient(#444, #444);
+    background-size: 50% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: spotlight-move 2s infinite linear;
+}
+
+@keyframes spotlight-move {
+    0% {
+        background-position: -50% 0, 0 0;
+    }
+
+    100% {
+        background-position: 150% 0, 0 0;
+    }
+}
+
+.loader-bar {
+    width: 0%;
+    height: 4px;
+    background: #a68164;
+    margin: 1rem auto;
+    border-radius: 2px;
+    transition: width .3s;
+}
+
+/* Navbar */
+header {
+    background-color: transparent;
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background: transparent;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo a {
+    font-size: 1.8rem;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    text-shadow:
+        1px 1px 0 #686463,
+        2px 2px 0 #b0b0b0,
+        3px 3px 5px rgba(0,0,0,0.3);
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+    text-transform: uppercase;
+    cursor: default;
+}
+
+.logo a span {
+    color: #838180;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-links li a:hover::after,
+.nav-links li a:focus::after {
+    transform: scaleX(1);
+}
+
+header.scrolled {
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+header.scrolled .logo a {
+    color: #333;
+    text-shadow: none;
+}
+
+header.scrolled .logo a span {
+    color: #686463;
+}
+
+header.scrolled .nav-links li a {
+    color: #333;
+}
+
+header.scrolled .nav-links li a::after {
+    background: #333;
+}
+
+/* Book Container */
+.book-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 80px 0;
+}
+
+.book-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    filter: brightness(70%);
+    object-fit: cover;
+    z-index: 1;
+}
+
+.book-slide {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.book-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Booking Form Styles */
+.form-wrapper {
+    position: relative;
+    z-index: 2;
+    background: transparent;
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.form-wrapper h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.form-group.full-width {
+    flex: 1 0 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    text-shadow: #161e27;
+}
+
+.form-group ::placeholder {
+    color: #cacaca;
+}
+
+.form-group label abbr {
+    color: rgb(172, 172, 172);
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 3px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    font-size: 16px;
+    color: #fff;
+    transition: all 0.3s ease;
+    background-color: transparent;
+}
+
+.form-group select{
+    box-sizing: border-box;
+    width: 10rem;
+    padding: 12px;
+    border: 1px solid #e3dbd7;
+    font-weight: 600;
+    font-size: 16px;
+    color: #fff;
+    transition: all 0.3s ease;
+    background-color: transparent;
+}
+
+.form-group select option{
+    color: #222;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #222;
+    box-shadow: 0 0 0 2px rgba(166, 129, 100, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.book-now-btn {
+    box-sizing: border-box;
+    background-color: #cfcfcf;
+    color: #000000;
+    border: 1px solid #fff;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: 550;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.book-now-btn:hover {
+    background-color: transparent;
+    color: #fff;
+    transform: none;
+    box-shadow: 0 0px 10px rgba(255, 255, 255, 0.3);
+}
+
+.book-now-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Datepicker Customization */
+.ui-datepicker {
+    background: #fff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    width: 300px;
+}
+
+.ui-datepicker .ui-datepicker-header {
+    background: #c0c0c0;
+    border: none;
+    border-radius: 4px 4px 0 0;
+    padding: 8px;
+}
+
+.ui-datepicker .ui-datepicker-title {
+    color: #fff;
+}
+
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.ui-datepicker th {
+    color: #666;
+    font-weight: 500;
+}
+
+.ui-datepicker td {
+    padding: 2px;
+}
+
+.ui-datepicker td span,
+.ui-datepicker td a {
+    text-align: center;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.ui-datepicker td a.ui-state-active {
+    background: #a68164;
+    color: #fff;
+}
+
+.ui-datepicker td a.ui-state-highlight {
+    background: #f5f5f5;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-wrapper {
+        padding: 30px 20px;
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+
+    .book-slide {
+        height: auto;
+        min-height: 100vh;
+        padding: 80px 0;
+    }
+
+    .book-container {
+        height: auto;
+        min-height: 100vh;
+        padding: 80px 0;
+    }
+
+    .form-wrapper h1 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+}
+
+/* Footer */
+.footer {
+    background-color: #161e27;
+    color: #ffffff;
+    padding: 40px 0;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left h3 {
+    margin-bottom: 10px;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-right a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-right a:hover {
+    color: #838180;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .footer-right {
+        text-align: center;
+    }
+}

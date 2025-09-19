@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Your Room | The Boulder House</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rooms.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo"><a href="{{ url_for('home') }}">The Boulder <span>House</span></a></div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About The Place</a></li>
+                    <li><a href="{{ url_for('book') }}">Book Now</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="room-chooser">
+        <h1>Choose Your Space</h1>
+        <a href="{{ url_for('book') }}" style="font-size:.95rem;color:#a68164;text-decoration:none">
+            ← Change dates or guests
+        </a>
+
+        <form method="POST" action="{{ url_for('rooms') }}" class="room-form">
+            <!-- Boulder Room -->
+            <div class="room-card">
+                <input type="radio" id="boulder" name="room_id" value="boulder" required>
+                <label for="boulder">
+                    <span class="room-name">Boulder Room 🪨</span>
+                    <span class="price">₹7,500</span>
+                    <small class="desc">Rustic charm - 2 guests, max 2 pets</small>
+                </label>
+            </div>
+
+            <!-- Eco Room -->
+            <div class="room-card">
+                <input type="radio" id="eco" name="room_id" value="eco" required>
+                <label for="eco">
+                    <span class="room-name">Eco Room 🌿</span>
+                    <span class="price">₹7,500</span>
+                    <small class="desc">Sustainable comfort - 2 guests, max 2 pets</small>
+                </label>
+            </div>
+
+            <!-- Scenic Room -->
+            <div class="room-card">
+                <input type="radio" id="scenic" name="room_id" value="scenic" required>
+                <label for="scenic">
+                    <span class="room-name">Scenic Room 🏞</span>
+                    <span class="price">₹8,000</span>
+                    <small class="desc">Panoramic view - 2 guests, max 2 pets</small>
+                </label>
+            </div>
+
+            <!-- Full House -->
+            <div class="room-card">
+                <input type="radio" id="full" name="room_id" value="full" required>
+                <label for="full">
+                    <span class="room-name">Full House 🏡</span>
+                    <span class="price">₹23,000</span>
+                    <small class="desc">Up to 6 people + pets</small>
+                </label>
+            </div>
+
+            <!-- Extra person -->
+            <div class="extra-people">
+                <label>
+                    Extra person(s):
+                    <input type="number" name="extra" min="0" value="0" {% if (adults + children)>= 6 %}disabled{% endif
+                    %}>
+                </label>
+                <small>₹1,500 each (meals & taxes included)</small>
+            </div>
+
+            <p id="live-price" style="font-size:1.3rem;font-weight:600;color:#a68164;margin:1rem 0;">
+                Total: ₹<span>0</span>
+            </p>
+
+            <button type="submit" class="btn-continue">Continue to Booking</button>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>Boulder House</h3>
+                <p>Escape to comfort and nature. Your adventure starts here.</p>
+            </div>
+            <div class="footer-right">
+                <p>&copy; {{ current_year }} The Boulder House. All rights reserved.</p>
+                <p><a href="mailto:theboulderhouseindia@gmail.com">theboulderhouseindia@gmail.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const prices = { boulder: 7500, eco: 7500, scenic: 8000, full: 23000 };
+        const radios = document.querySelectorAll('input[name="room_id"]');
+        const extraIn = document.querySelector('input[name="extra"]');
+        const out = document.querySelector('#live-price span');
+
+        function updatePrice() {
+            const r = document.querySelector('input[name="room_id"]:checked')?.value || 'boulder';
+            const e = parseInt(extraIn.value, 10) || 0;
+            let t = prices[r];
+            if (r !== 'full') t += e * 1500;
+            out.textContent = t.toLocaleString('en-IN');
+        }
+        radios.forEach(el => el.addEventListener('change', updatePrice));
+        extraIn.addEventListener('input', updatePrice);
+        updatePrice(); // initial
+    </script>
+</body>
+
+</html>

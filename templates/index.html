@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Boulder House</title>
+    <style>
+        /* body {
+            margin: 0;
+            font-family: Roboto, system-ui, sans-serif;
+            background: #f4f6f9;
+            color: #333
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            background: #fff;
+            transition: .3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a {
+            font-size: 1.8rem;
+            color: #222;
+            text-shadow: none;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo a span {
+            color: #00796b;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background .2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus {
+            background: rgba(0, 0, 0, 0.06);
+        } */
+
+        /* Hamburger styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            z-index: 20;
+            background: none;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            position: relative;
+            transition: .3s;
+        }
+
+        .hamburger:focus {
+            outline: none;
+        }
+
+        .hamburger span {
+            height: 4px;
+            width: 100%;
+            background: #fff;
+            margin: 5px 0;
+            border-radius: 2px;
+            transition: .3s;
+            display: block;
+            position: relative;
+        }
+
+        /* Make cross color #333 when active */
+        .hamburger.active span {
+            background: #333;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Responsive navbar */
+        /* @media (max-width: 900px) {
+            .nav-links {
+                gap: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .nav-links {
+                position: absolute;
+                left: 0;
+                top: 100%;
+                width: 100vw;
+                background: #fff;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                height: 0;
+                overflow: hidden;
+                transition: height .3s cubic-bezier(.4, 0, .2, 1);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+                padding-top: 0;
+                z-index: 19;
+                gap: 0;
+                pointer-events: none;
+            }
+
+            .nav-links.open {
+                height: 60px;
+                padding-top: 0;
+                pointer-events: auto;
+            }
+
+            .nav-links.open a {
+                color: #333;
+            }
+
+            .nav-links li {
+                margin: 0 12px;
+            }
+
+            body.menu-open {
+                overflow-x: hidden;
+            }
+
+            body.menu-open header {
+                background: #fff !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            }
+        } 
+            
+        .navbar {
+            padding-left: 18px;
+            padding-right: 18px;
+        } */
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/scrollbar.css') }}">
+</head>
+
+<body>
+    <div id="loader" class="loader-overlay">
+        <div class="spotlight-container">
+            <h1 class="spotlight-text">The Boulder House</h1>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+
+
+    <header>
+        <nav class="navbar" aria-label="Main Navigation">
+            <div class="container">
+                <div class="logo">
+                    <a href="{{ url_for('home') }}">The Boulder <span>House</span></a>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About the Place</a></li>
+                    <li><a href="{{ url_for('book') }}">Book Now</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+
+                <!-- Hamburger icon for mobile -->
+                <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="slideshow">
+        <div class="slide active">
+            <img src="{{ url_for('static', filename='images/slide1.jpg') }}" alt="Slide 1">
+            <div class="overlay-text">
+                <h1>Experience Nature's Embrace</h1>
+                <p>Spread across 50 acres of lush greenery, The Boulder House India invites you to reconnect with
+                    nature.
+                    Whether you're seeking a peaceful retreat or an adventurous getaway, our surroundings offer the
+                    perfect backdrop for relaxation and exploration.</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='images/slide2.jpg') }}" alt="Slide 2">
+            <div class="overlay-text">
+                <h1>The Ultimate Comfort</h1>
+                <p>Experience warmth with elegant interiors and peaceful lighting.</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='images/slide3.jpg') }}" alt="Slide 3">
+            <div class="overlay-text">
+                <h1>Elegant Accommodations</h1>
+                <p>Carefully designed to relieve your fatigue from where you can feel for yourself what it is like to
+                    truly relax in nature.</p>
+            </div>
+        </div>
+
+        <button class="prev">&#10096;</button>
+        <button class="next">&#10097;</button>
+
+        <div class="dots">
+            <span class="dot active" onclick="showSlide(0)"></span>
+            <span class="dot" onclick="showSlide(1)"></span>
+            <span class="dot" onclick="showSlide(2)"></span>
+        </div>
+    </div>
+
+    <section class="overview">
+        <div class="overview-container">
+            <h2>Welcome to The Boulder House India</h2>
+            <p>
+                Nestled amidst the serene landscapes of Shoolagiri, The Boulder House India offers a harmonious blend of
+                rustic charm and modern luxury. Our retreat is a haven where nature's tranquility meets refined comfort,
+                providing an idyllic escape from the everyday hustle. Experience the perfect blend of comfort and nature
+                at The Boulder House. Spacious and comfortable
+                rooms.
+                Stunning views of the surrounding landscape. Modern amenities for a convenient stay. Proximity to
+                hiking trails and outdoor activities.
+            </p>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Features</h2>
+        <div class="features-container">
+            <div class="feature-card">
+                <h3>Farm-to-Table Dining</h3>
+                <p>Savor the flavors of our region with meals prepared from fresh, locally sourced ingredients. Our
+                    culinary offerings celebrate the richness of local produce, delivering a dining experience that's
+                    both wholesome and delightful.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Activities & Adventures</h3>
+                <p>Engage in a variety of activities tailored to suit all interests:</p>
+                <ul>
+                    <li><strong>Nature Walks:</strong> Explore scenic trails and discover the local flora and fauna.
+                    </li>
+                    <li><strong>Workshops:</strong> Participate in hands-on sessions that connect you with nature and
+                        local traditions.</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>Pet-Friendly Retreat</h3>
+                <p>We welcome your furry companions to join you on your getaway. Our pet-friendly facilities ensure that
+                    every member of your family enjoys a comfortable and memorable stay.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <h2 style="text-align:center; margin:40px 0 20px; font-size:2.25rem; color:#333;">
+            Gallery
+        </h2>
+
+        <div class="slider-wrapper">
+            <button class="slider-btn slider-prev" aria-label="Previous">‹</button>
+            <button class="slider-btn slider-next" aria-label="Next">›</button>
+
+            <div class="slider-track" id="galleryTrack">
+                <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" loading="lazy"
+                    alt="Stone cottage patio at sunrise">
+                <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" loading="lazy"
+                    alt="Outdoor dining table under trees">
+                <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" loading="lazy"
+                    alt="Pet-friendly cabin interior">
+                <img src="{{ url_for('static', filename='images/gallery4.jpg') }}" loading="lazy"
+                    alt="Mountain view from bedroom window">
+                <img src="{{ url_for('static', filename='images/slide1.jpg') }}" loading="lazy"
+                    alt="Panoramic valley shot">
+                <img src="{{ url_for('static', filename='images/slide2.jpg') }}" loading="lazy"
+                    alt="Warm evening lighting inside room">
+            </div>
+
+            <a href="{{ url_for('gallery') }}" class="view-more-btn">Uncover the Views</a>
+        </div>
+
+        <script>
+            const track = document.getElementById('galleryTrack');
+            const prevBtn = document.querySelector('.slider-prev');
+            const nextBtn = document.querySelector('.slider-next');
+            const slideWidth = 380 + 15; // image width + gap
+            let position = 0;
+
+            const maxScroll = () => -(track.scrollWidth - track.parentElement.clientWidth);
+
+            prevBtn.addEventListener('click', () => {
+                position = Math.min(position + slideWidth, 0);
+                track.style.transform = `translateX(${position}px)`;
+            });
+
+            nextBtn.addEventListener('click', () => {
+                position = Math.max(position - slideWidth, maxScroll());
+                track.style.transform = `translateX(${position}px)`;
+            });
+        </script>
+        <!-- lightbox overlay -->
+        <div id="lightbox" style="
+        position:fixed; inset:0; background:rgba(0,0,0,.85);
+        display:none; align-items:center; justify-content:center; z-index:999;">
+            <img id="lightboxImg" style="max-width:90vw; max-height:90vh; border-radius:8px">
+            <button id="closeLightbox" style="
+                position:absolute;
+                top:18px;
+                right:28px;
+                background:rgba(0,0,0,0.35);
+                border:none;
+                color:#fff;
+                font-size:2.5rem;
+                cursor:pointer;
+                border-radius:50%;
+                width:44px;
+                height:44px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                transition:background 0.2s;
+            " onmouseover="this.style.background='rgba(0,0,0,0.6)'"
+                onmouseout="this.style.background='rgba(0,0,0,0.35)'" aria-label="Close">&times;</button>
+        </div>
+
+        <script>
+            // attach to every image in the slider
+            document.querySelectorAll('#galleryTrack img').forEach(img => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', () => {
+                    document.getElementById('lightboxImg').src = img.src;
+                    document.getElementById('lightbox').style.display = 'flex';
+                });
+            });
+
+            // close on click or ESC
+            document.getElementById('closeLightbox').addEventListener('click', () => {
+                document.getElementById('lightbox').style.display = 'none';
+            });
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') document.getElementById('lightbox').style.display = 'none';
+            });
+        </script>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>The Boulder House</h3>
+                <p>Escape to comfort and nature. Your adventure starts here.</p>
+            </div>
+
+            <div class="footer-right">
+                <!-- physical address -->
+                <p><strong>Address</strong><br>
+                    Shoolagiri, Tamil Nadu&nbsp;635105</p>
+
+                <!-- callback micro-form -->
+                <form id="callback-form" action="{{ url_for('callback') }}" method="post">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="tel" name="phone" placeholder="Your Phone Number" required>
+                    <button type="submit">Request Callback</button>
+                </form>
+
+                <small>&copy; {{ current_year }} The Boulder House. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back-to-top button -->
+    <button id="topBtn" aria-label="Back to top">↑</button>
+
+    <style>
+        #topBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity .3s, transform .3s;
+            z-index: 99;
+        }
+
+        #topBtn.show {
+            opacity: 1;
+            transform: none
+        }
+    </style>
+    <script>
+        // Callback form
+        document.getElementById('callback-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = new FormData(e.target);
+            await fetch('/callback', { method: 'POST', body: payload });
+            e.target.innerHTML = '<p>✓ We’ll call you shortly!</p>';
+        });
+
+        // Back-to-top button
+        const topBtn = document.getElementById('topBtn');
+        window.addEventListener('scroll', () =>
+            topBtn.classList.toggle('show', window.scrollY > 400)
+        );
+        topBtn.addEventListener('click', () =>
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        );
+
+        // Loader
+        let progress = 0;
+        const loader = document.getElementById('loader');
+        const bar = document.querySelector('.loader-bar');
+        const fake = setInterval(() => {
+            progress = Math.min(progress + 5, 90);
+            bar.style.width = progress + '%';
+        }, 100);
+        window.addEventListener('load', () => {
+            clearInterval(fake);
+            bar.style.width = '100%';
+            setTimeout(() => {
+                loader.style.opacity = 0;
+                loader.style.visibility = 'hidden';
+            }, 300);
+        });
+
+        // Hamburger menu toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        hamburgerBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            hamburgerBtn.classList.toggle('active'); // animate hamburger
+            const expanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+            hamburgerBtn.setAttribute('aria-expanded', !expanded);
+            // Prevent horizontal scroll when menu is open
+            if (navLinks.classList.contains('open')) {
+                document.body.classList.add('menu-open');
+            } else {
+                document.body.classList.remove('menu-open');
+            }
+        });
+        // Optional: close menu when clicking a link (on mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('open');
+                    hamburgerBtn.classList.remove('active'); // reset hamburger
+                    hamburgerBtn.setAttribute('aria-expanded', 'false');
+                    document.body.classList.remove('menu-open');
+                }
+            });
+        });
+        // Close menu on resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('open');
+                hamburgerBtn.classList.remove('active'); // reset hamburger
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('menu-open');
+            }
+        });
+    </script>
+    
+    <script src="{{ url_for('static', filename='js/slideshow.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
+</body>
+
+</html>

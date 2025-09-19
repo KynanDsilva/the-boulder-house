@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | The Boulder House</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/scrollbar.css') }}">
+</head>
+
+<body>
+    <div id="loader" class="loader-overlay">
+        <div class="spotlight-container">
+            <h1 class="spotlight-text">The Boulder House</h1>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="{{ url_for('home') }}">The Boulder <span>House</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About The Place</a></li>
+                    <li><a href="{{ url_for('book') }}">Book Now</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-container">
+            <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" alt="Outdoor View at The Boulder House"
+                class="popup-img">
+            <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" alt="Living Room at The Boulder House"
+                class="popup-img">
+            <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" alt="Activities at The Boulder House"
+                class="popup-img">
+            <img src="{{ url_for('static', filename='images/gallery4.jpg') }}" alt="Outdoor view of The Boulder House"
+                class="popup-img">
+            <img src="{{ url_for('static', filename='images/slide1.jpg') }}" alt="Bedroom at The Boulder House"
+                class="popup-img">
+            <img src="{{ url_for('static', filename='images/slide2.jpg') }}" alt="Bedroom at The Boulder House"
+                class="popup-img">
+        </div>
+
+        <div id="imgModal" class="img-modal" style="display:none;">
+            <span class="close-modal" id="closeModal" onmouseover="this.style.background='rgba(0,0,0,0.6)'"
+                onmouseout="this.style.background='rgba(0,0,0,0.35)'">&times;</span>
+            <img class="modal-content" id="modalImg">
+            <button id="prevBtn" class="nav-arrow nav-left">&lt;</button>
+            <button id="nextBtn" class="nav-arrow nav-right">&gt;</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>The Boulder House</h3>
+                <p>Escape to comfort and nature. Your adventure starts here.</p>
+            </div>
+            <div class="footer-right">
+                <p>&copy; {{ current_year }} The Boulder House. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.popup-img').forEach(img => {
+            img.addEventListener('click', function () {
+                document.getElementById('imgModal').style.display = 'flex';
+                document.getElementById('modalImg').src = this.src;
+            });
+        });
+        document.getElementById('closeModal').onclick = function () {
+            document.getElementById('imgModal').style.display = 'none';
+        };
+        document.getElementById('imgModal').onclick = function (e) {
+            if (e.target === this) this.style.display = 'none';
+        };
+    </script>
+
+    <script>
+        let progress = 0;
+        const loader = document.getElementById('loader');
+        const bar = document.querySelector('.loader-bar');
+
+        // fake progress while images load (optional)
+        const fake = setInterval(() => {
+            progress = Math.min(progress + 5, 90);
+            bar.style.width = progress + '%';
+        }, 100);
+
+        // hide loader once page is ready
+        window.addEventListener('load', () => {
+            clearInterval(fake);
+            bar.style.width = '100%';
+            setTimeout(() => {
+                loader.style.opacity = 0;
+                loader.style.visibility = 'hidden';
+            }, 300);
+        });
+    </script>
+
+    <script>
+        const imgs = document.querySelectorAll('.popup-img');
+        let currentIndex = 0;
+
+        function showModal(i) {
+            currentIndex = i;
+            document.getElementById('imgModal').style.display = 'flex';
+            document.getElementById('modalImg').src = imgs[i].src;
+            updateNav();
+        }
+
+        function updateNav() {
+            const prev = document.getElementById('prevBtn');
+            const next = document.getElementById('nextBtn');
+            prev.disabled = currentIndex === 0;
+            next.disabled = currentIndex === imgs.length - 1;
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentIndex < imgs.length - 1) {
+                currentIndex++;
+                document.getElementById('modalImg').src = imgs[currentIndex].src;
+                updateNav();
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                document.getElementById('modalImg').src = imgs[currentIndex].src;
+                updateNav();
+            }
+        });
+
+        imgs.forEach((img, i) => img.addEventListener('click', () => showModal(i)));
+    </script>
+
+    <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
+</body>
+
+</html>

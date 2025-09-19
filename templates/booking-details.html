@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/booking-details.css') }}">
+    <title>Booking Details | The Boulder House</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="{{ url_for('home') }}">The Boulder <span>House</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About the Place</a></li>
+                    <li><a href="{{ url_for('book') }}">Book Now</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="booking-container">
+        <div class="booking-details-card">
+            <h1>Booking Confirmed</h1>
+
+            <div class="booking-summary">
+                <p><strong>Name:</strong> {{ booking_details.get('name', 'N/A') }}</p>
+                <p><strong>Check-in:</strong> {{ booking_details.get('check_in', 'N/A') }}</p>
+                <p><strong>Check-out:</strong> {{ booking_details.get('check_out', 'N/A') }}</p>
+                <p><strong>Room:</strong> {{ booking_details.get('room', 'N/A') }}</p>
+                <p><strong>Total Price:</strong> ₹{{ "{:,.0f}".format(booking_details.get('price', 0)) }}</p>
+            </div>
+
+            <div class="actions">
+                <a class="btn-home" href="{{ url_for('home') }}">← Back Home</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>The Boulder House</h3>
+                <p>Escape to comfort and nature. Your adventure starts here.</p>
+            </div>
+            <div class="footer-right">
+                <p>&copy; {{ current_year }} The Boulder House. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

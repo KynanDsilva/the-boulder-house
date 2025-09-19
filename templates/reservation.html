@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Booking | The Boulder House</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reservation.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/scrollbar.css') }}">
+    <style>
+        #booking-continuation-form input.invalid {
+            border-color: #e74c3c;
+        }
+
+        #booking-continuation-form input.valid {
+            border-color: #27ae60;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="{{ url_for('home') }}">The Boulder <span>House</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About the Place</a></li>
+                    <li><a href="{{ url_for('book') }}">Book Now</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="booking-container">
+        <div class="booking-form">
+            <h1>Complete Your Booking</h1>
+            <div class="booking-summary">
+                <h2>Booking Summary</h2>
+                <div class="summary-details">
+                    <p><strong>Check-in:</strong> <span id="check-in-date">{{ check_in_date }}</span></p>
+                    <p><strong>Check-out:</strong> <span id="check-out-date">{{ check_out_date }}</span></p>
+                    <p><strong>Guests:</strong> <span id="adults">{{ adults }}</span> Adults{% if children != '0' %},
+                        <span id="kids">{{ children }}</span> Kids{% endif %}
+                    </p>
+                    <p><strong>Room:</strong> <span id="room-name">{{ room_name }}</span></p>
+                    <p><strong>Total Price:</strong> ₹<span id="total-price">{{ total_price }}</span></p>
+                </div>
+            </div>
+
+            <form id="booking-continuation-form" method="POST" action="{{ url_for('confirm') }}">
+                <input type="hidden" name="adults" value="{{ adults }}">
+                <input type="hidden" name="children" value="{{ children }}">
+                <div class="form-section">
+                    <h2>Contact Information</h2>
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" name="full_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Terms and Conditions</h2>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the terms and conditions</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="confirmBtn">
+                    <span id="btnText">Confirm Booking</span>
+                    <span id="spinner" style="display:none;">⟳</span>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>Boulder House</h3>
+                <p>Escape to comfort and nature. Your adventure starts here.</p>
+            </div>
+            <div class="footer-right">
+                <p>&copy; {{ current_year }} The Boulder House. All rights reserved.</p>
+                <p><a href="mailto:theboulderhouseindia@gmail.com">theboulderhouseindia@gmail.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const inputs = document.querySelectorAll('#booking-continuation-form input[required]');
+        inputs.forEach(el => {
+            el.addEventListener('blur', () => {
+                el.classList.toggle('invalid', !el.value.trim());
+                el.classList.toggle('valid', !!el.value.trim());
+            });
+        });
+    </script>
+
+    <script>
+        const price = Number("{{ total_price }}");
+        document.querySelector('#total-price').textContent = price.toLocaleString('en-IN');
+    </script>
+
+    <script>
+        document.getElementById('booking-continuation-form').addEventListener('submit', (e) => {
+            document.getElementById('btnText').textContent = 'Processing…';
+            document.getElementById('spinner').style.display = 'inline';
+            document.getElementById('confirmBtn').disabled = true;
+        });
+    </script>
+
+    <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
+</body>
+
+</html>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -156,4 +157,88 @@
     <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | The Boulder House</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/scrollbar.css') }}">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="{{ url_for('home') }}">The Boulder <span>House</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('about') }}">About the Place</a></li>
+                    <li><a href="{{ url_for('book') }}">Book Now</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="about-slide">
+        <div class="about-container">
+            <img src="{{ url_for('static', filename='images/about1.jpg') }}" alt="Nature View">
+            <div class="about-caption">
+                <h1>Welcome to The Boulder House</h1>
+                <p>Wander through lush greenery and find peace in the heart of the wild. Our retreat invites you to
+                breathe easy.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-slide">
+        <div class="about-container">
+            <img src="{{ url_for('static', filename='images/about2.jpg') }}" alt="philosophy">
+            <div class="about-caption">
+                <h1>Our Philosophy</h1>
+                <p>The Boulder House is built on a simple idea: nature knows best. Every space is shaped to honor the land it sits on using local materials, natural textures, and wide open views. Whether you're here to rest, create, or explore, we've made room for you to do it at your own pace. And because time in nature is better with your best companion, we're proudly pet-friendly your four-legged friends are just as welcome as you are.</p>
+        </div>
+    </section>
+
+    <section class="about-slide">
+        <div class="about-container">
+            <img src="{{ url_for('static', filename='images/about3.jpg') }}" alt="stay">
+            <div class="about-caption">
+                <h1>Stay Your Way</h1>
+                <p>Every room here is intentionally minimal, allowing the setting to take the lead. Open layouts, clean lines, and earthy tones create a space that's calm and grounding. Wake up to birdsong, fall asleep to quiet winds this is a place tuned to the rhythms of the land.</p>
+        </div>
+    </section>
+
+    <section class="about-slide">
+        <div class="about-container">
+            <img src="{{ url_for('static', filename='images/about4.jpg') }}" alt="comfort">
+            <div class="about-caption">
+                <h1>Comfort, Naturally</h1>
+                <p>Comfort here isn't complicated it's the warmth of sunlight through your window, the softness of clean sheets, and the quiet ease of being surrounded by nature. With thoughtful details and a peaceful setting, everything you need is right here, without the excess.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>Boulder House</h3>
+                <p>Escape to comfort and nature. Your adventure starts here.</p>
+            </div>
+            <div class="footer-right">
+                <p>&copy; {{ current_year }} The Boulder House. All rights reserved.</p>
+                <p><a href="mailto:contact@boulderhouse.com">contact@boulderhouse.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
+</body>
+
+>>>>>>> d84eb2004362abffdf306682fba8be5d0d842fef
 </html>
